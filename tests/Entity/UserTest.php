@@ -20,12 +20,4 @@ class UserTest extends KernelTestCase
         $this->assertEquals('securepassword', $user->getPassword());
         $this->assertEquals(['ROLE_USER'], $user->getRoles());
     }
-
-    public function testUserRole()
-    {
-        $user = new User();
-        $user->setRoles(['ROLE_USER']);
-
-        $this->assertEquals(['ROLE_USER'], $user->getRoles());
-    }
 }
