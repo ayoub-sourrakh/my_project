@@ -11,7 +11,7 @@ class Calculator
         $totalHT = 0.0;
 
         foreach ($products as $product) {
-            $totalHT += $product->getPrice();
+            $totalHT += $product->getPrice() * $product->getQuantity();;
         }
 
         return $totalHT;
@@ -22,7 +22,7 @@ class Calculator
         $totalTTC = 0.0;
 
         foreach ($products as $product) {
-            $totalTTC += $product->getPrice() * (1 + ($tva / 100));
+            $totalTTC += ($product->getPrice() * $product->getQuantity()) * (1 + ($tva / 100));
         }
 
         return $totalTTC;

@@ -13,10 +13,7 @@ class OrderTest extends KernelTestCase
         $order->setTotalPrice(100.0);
 
         $user = new User();
-        $user->setLastName('Doe');
-        $user->setFirstName('John');
         $user->setEmail('john@example.com');
-        $user->setPassword('securepassword');
 
         $order->setUserId($user);
 
