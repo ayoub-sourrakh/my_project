@@ -19,13 +19,8 @@ class Calculator
 
     public function getTotalTTC(array $productsWithQuantities, float $tva): float
     {
-        $totalTTC = 0.0;
-
-        foreach ($productsWithQuantities as $productWithQuantity) {
-            $product = $productWithQuantity['product'];
-            $quantity = $productWithQuantity['quantity'];
-            $totalTTC += ($product->getPrice() * $quantity) * (1 + ($tva / 100));
-        }
+        $totalHT = $this->getTotalHT($productsWithQuantities);
+        $totalTTC = $totalHT * (1 + ($tva / 100));
 
         return $totalTTC;
     }
