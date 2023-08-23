@@ -4,9 +4,9 @@ namespace App\Tests\Service;
 
 use App\Entity\Product;
 use App\Service\Calculator;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class CalculatorTest extends TestCase
+class CalculatorTest extends KernelTestCase
 {
     public function testGetTotalHT()
     {
