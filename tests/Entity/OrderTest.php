@@ -19,6 +19,6 @@ class OrderTest extends KernelTestCase
 
         $this->assertEquals('ORD123', $order->getNumber());
         $this->assertEquals(100.0, $order->getTotalPrice());
-        $this->assertEquals('john@example.com' ,$user->getEmail());
+        $this->assertEquals('john@example.com' ,$order->getUserId()->getEmail());
     }
 }

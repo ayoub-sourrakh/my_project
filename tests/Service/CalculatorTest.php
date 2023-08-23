@@ -25,9 +25,7 @@ class CalculatorTest extends TestCase
 
         $totalHT = $calculator->getTotalHT($products);
 
-        $expectedTotalHT = (10.0 * 2) + (20.0 * 3);
-
-        $this->assertEquals($expectedTotalHT, $totalHT);
+        $this->assertEquals(80, $totalHT);
     }
 
     public function testGetTotalTTC()
@@ -49,8 +47,6 @@ class CalculatorTest extends TestCase
 
         $totalTTC = $calculator->getTotalTTC($products, $tva);
 
-        $expectedTotalTTC = ((10.0 * 2) * (1 + ($tva / 100))) + ((20.0 * 3) * (1 + ($tva / 100)));
-
-        $this->assertEquals($expectedTotalTTC, $totalTTC);
+        $this->assertEquals(96, $totalTTC);
     }
 }

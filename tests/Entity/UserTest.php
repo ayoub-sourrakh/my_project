@@ -19,5 +19,6 @@ class UserTest extends KernelTestCase
         $this->assertEquals('john@example.com', $user->getEmail());
         $this->assertEquals('securepassword', $user->getPassword());
         $this->assertContains('ROLE_USER', $user->getRoles());
+        $this->assertEquals('john@example.com', $user->getUserIdentifier());
     }
 }
