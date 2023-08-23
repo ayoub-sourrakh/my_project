@@ -2,27 +2,29 @@
 
 namespace App\Service;
 
-use App\Entity\Product;
-
 class Calculator
 {
-    public function getTotalHT(array $products): float
+    public function getTotalHT(array $productsWithQuantities): float
     {
         $totalHT = 0.0;
 
-        foreach ($products as $product) {
-            $totalHT += $product->getPrice() * $product->getQuantity();;
+        foreach ($productsWithQuantities as $productWithQuantity) {
+            $product = $productWithQuantity['product'];
+            $quantity = $productWithQuantity['quantity'];
+            $totalHT += $product->getPrice() * $quantity;
         }
 
         return $totalHT;
     }
 
-    public function getTotalTTC(array $products, float $tva): float
+    public function getTotalTTC(array $productsWithQuantities, float $tva): float
     {
         $totalTTC = 0.0;
 
-        foreach ($products as $product) {
-            $totalTTC += ($product->getPrice() * $product->getQuantity()) * (1 + ($tva / 100));
+        foreach ($productsWithQuantities as $productWithQuantity) {
+            $product = $productWithQuantity['product'];
+            $quantity = $productWithQuantity['quantity'];
+            $totalTTC += ($product->getPrice() * $quantity) * (1 + ($tva / 100));
         }
 
         return $totalTTC;

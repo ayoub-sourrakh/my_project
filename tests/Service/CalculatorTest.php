@@ -13,13 +13,15 @@ class CalculatorTest extends TestCase
         $calculator = new Calculator();
 
         $products = [
-            (new Product())->setPrice(10.0),
-            (new Product())->setPrice(20.0),
+            [
+                'product' => (new Product())->setPrice(10.0),
+                'quantity' => 2,
+            ],
+            [
+                'product' => (new Product())->setPrice(20.0),
+                'quantity' => 3,
+            ],
         ];
-
-        $products[0]->setQuantity(2);
-        $products[1]->setQuantity(3);
-
 
         $totalHT = $calculator->getTotalHT($products);
 
@@ -33,18 +35,21 @@ class CalculatorTest extends TestCase
         $calculator = new Calculator();
 
         $products = [
-            (new Product())->setPrice(10.0),
-            (new Product())->setPrice(20.0),
+            [
+                'product' => (new Product())->setPrice(10.0),
+                'quantity' => 2,
+            ],
+            [
+                'product' => (new Product())->setPrice(20.0),
+                'quantity' => 3,
+            ],
         ];
-
-        $products[0]->setQuantity(2);
-        $products[1]->setQuantity(3);
 
         $tva = 20.0;
 
         $totalTTC = $calculator->getTotalTTC($products, $tva);
 
-        $expectedTotalTTC = ($products[0]->getPrice() * $products[0]->getQuantity() * (1 + ($tva / 100))) + ($products[1]->getPrice() * $products[1]->getQuantity() * (1 + ($tva / 100)));
+        $expectedTotalTTC = ((10.0 * 2) * (1 + ($tva / 100))) + ((20.0 * 3) * (1 + ($tva / 100)));
 
         $this->assertEquals($expectedTotalTTC, $totalTTC);
     }
