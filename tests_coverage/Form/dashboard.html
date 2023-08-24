@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/ayoub/Desktop/my_project/src/Service</title>
+  <title>Dashboard for /home/ayoub/Desktop/my_project/src/Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css?v=9.2.27" rel="stylesheet" type="text/css">
   <link href="../_css/nv.d3.min.css?v=9.2.27" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">/home/ayoub/Desktop/my_project/src</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Service</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Form</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -58,7 +58,7 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="EmailService.php.html#5">App\Service\EmailService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RegistrationFormType.php.html#15">App\Form\RegistrationFormType</a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -112,7 +112,8 @@
         </tr>
        </thead>
        <tbody>
-       <tr><td><a href="EmailService.php.html#7"><abbr title="App\Service\EmailService::send">send</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RegistrationFormType.php.html#17"><abbr title="App\Form\RegistrationFormType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RegistrationFormType.php.html#51"><abbr title="App\Form\RegistrationFormType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -157,7 +158,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,2], "Class Coverage"))
+      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -175,7 +176,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([1,0,0,0,0,0,0,0,0,0,0,4], "Method Coverage"))
+      .datum(getCoverageDistributionData([2,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -225,7 +226,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,3,"<a href=\"Calculator.php.html#5\">App\\Service\\Calculator<\/a>"],[0,1,"<a href=\"EmailService.php.html#5\">App\\Service\\EmailService<\/a>"],[100,2,"<a href=\"Invoice.php.html#5\">App\\Service\\Invoice<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[0,2,"<a href=\"RegistrationFormType.php.html#15\">App\\Form\\RegistrationFormType<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -249,7 +250,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,2,"<a href=\"Calculator.php.html#7\">App\\Service\\Calculator::getTotalHT<\/a>"],[100,1,"<a href=\"Calculator.php.html#20\">App\\Service\\Calculator::getTotalTTC<\/a>"],[0,1,"<a href=\"EmailService.php.html#7\">App\\Service\\EmailService::send<\/a>"],[100,1,"<a href=\"Invoice.php.html#9\">App\\Service\\Invoice::__construct<\/a>"],[100,1,"<a href=\"Invoice.php.html#14\">App\\Service\\Invoice::process<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[0,1,"<a href=\"RegistrationFormType.php.html#17\">App\\Form\\RegistrationFormType::buildForm<\/a>"],[0,1,"<a href=\"RegistrationFormType.php.html#51\">App\\Form\\RegistrationFormType::configureOptions<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
