@@ -6,46 +6,60 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
+
+    private $client;
+ 
+    protected function setUp():void
+    {
+        parent::setUp();
+
+        $this->client = static::createClient(); //Créer le client
+    }
+
+    public function testLoginPageIsRender()
+    {
+        $this->client->request('GET', '/login'); // Faire la requête
+
+        $this->assertResponseIsSuccessful(); // Vérifier qu'elle est en succès
+
+        $this->assertSelectorTextContains('h1', 'Please sign in'); // Vérifier que la page contient bien le titre
+    }
+
     public function testLoginSuccess()
     {
-        $client = static::createClient();
-        $client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/login'); // Faire la requête
 
-        $this->assertResponseIsSuccessful();
+        $form = $crawler->selectButton('login')->form();
+        $form['_username'] = 'john@example.com';
+        $form['_password'] = 'securepassword';
 
-        $client->submitForm('login', [
-            '_username' => 'john@example.com',
-            '_password' => 'securepassword',
-        ]);
-
-        // $this->assertResponseRedirects('/');
+        $this->client->submit($form); // Soumettre le formulaire
 
         $this->assertResponseRedirects();
-        $location = $client->getResponse()->headers->get('Location');
-        $this->assertStringEndsWith('/', $location);
+        $location = $this->client->getResponse()->headers->get('Location');
+        $this->assertStringEndsWith('/', $location); // vérifier qu'on est bien redirigé vers la page d'accueil
+
+        $crawler = $this->client->followRedirect();
+        $this->assertSelectorTextContains('h1', "Page d'accueil"); // vérifier que la page d'accueil contient bien les bons textes
     }
 
     public function testLoginFailure()
     {
-        $client = static::createClient();
-        $client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/login');
 
-        $this->assertResponseIsSuccessful();
+        $form = $crawler->selectButton('login')->form();
+        $form['_username'] = 'john@example.com';
+        $form['_password'] = 'wrongpassword';
 
-        $client->followRedirects();
+        $this->client->submit($form);
 
-        $client->submitForm('login', [
-            '_username' => 'john@example.com',
-            '_password' => 'wrongpassword',
-        ]);
-
+        $crawler = $this->client->followRedirect();
         $this->assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
     }
 
     public function testRegistrationSuccess()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/register');
+        $crawler = $this->client->request('GET', '/register');
 
         $this->assertResponseIsSuccessful();
 
@@ -55,11 +69,11 @@ class SecurityControllerTest extends WebTestCase
         $form['registration_form[email]'] = 'newuser@example.com';
         $form['registration_form[plainPassword]'] = 'newsecurepassword';
 
-        $client->submit($form);
+        $this->client->submit($form);
 
         // $this->assertResponseRedirects('/login');
         $this->assertResponseRedirects();
-        $location = $client->getResponse()->headers->get('Location');
+        $location = $this->client->getResponse()->headers->get('Location');
         $this->assertStringEndsWith('/login', $location);
     }
 }
