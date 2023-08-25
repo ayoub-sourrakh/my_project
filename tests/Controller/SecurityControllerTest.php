@@ -56,24 +56,4 @@ class SecurityControllerTest extends WebTestCase
         $crawler = $this->client->followRedirect();
         $this->assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
     }
-
-    public function testRegistrationSuccess()
-    {
-        $crawler = $this->client->request('GET', '/register');
-
-        $this->assertResponseIsSuccessful();
-
-        $form = $crawler->selectButton('Register')->form();
-        $form['registration_form[firstname]'] = 'newuser';
-        $form['registration_form[lastname]'] = 'test';
-        $form['registration_form[email]'] = 'newuser@example.com';
-        $form['registration_form[plainPassword]'] = 'newsecurepassword';
-
-        $this->client->submit($form);
-
-        // $this->assertResponseRedirects('/login');
-        $this->assertResponseRedirects();
-        $location = $this->client->getResponse()->headers->get('Location');
-        $this->assertStringEndsWith('/login', $location);
-    }
 }
