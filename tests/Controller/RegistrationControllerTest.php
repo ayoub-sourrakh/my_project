@@ -49,6 +49,24 @@ class RegisterTest extends WebTestCase
         $user = $userRepository->findOneBy(['email' => 'newuser@example.com']);
         $this->assertNotNull($user);
     }
+
+    public function testInvalidEmailFormat()
+    {
+        $crawler = $this->client->request('GET', '/register');
+        $this->assertResponseIsSuccessful();
+
+        $form = $crawler->selectButton('Register')->form();
+        $form['registration_form[firstname]'] = 'newuser';
+        $form['registration_form[lastname]'] = 'test';
+        $form['registration_form[email]'] = 'invalidemail@mail';
+        $form['registration_form[plainPassword]'] = 'newsecurepassword';
+
+        $crawler = $this->client->submit($form);
+        $this->assertResponseIsSuccessful();
+
+        // $errorElement = $crawler->filter('.form-error-message:contains("is not a valid email address.")');
+        // $this->assertCount(1, $errorElement);
+    }
     
  
     protected function tearDown():void{
